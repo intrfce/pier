@@ -1,11 +1,11 @@
 {
-    "name": "laravel/sail",
+    "name": "laravel/pier",
     "description": "Docker files for running a basic Laravel application.",
     "keywords": ["laravel", "docker"],
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel/sail/issues",
-        "source": "https://github.com/laravel/sail"
+        "issues": "https://github.com/laravel/pier/issues",
+        "source": "https://github.com/laravel/pier"
     },
     "authors": [
         {
@@ -26,17 +26,17 @@
         "phpstan/phpstan": "^2.0"
     },
     "bin": [
-        "bin/sail"
+        "bin/pier"
     ],
     "autoload": {
         "psr-4": {
-            "Laravel\\Sail\\": "src/"
+            "SocialSync\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Laravel\\Sail\\SailServiceProvider"
+                "SocialSync\\PierServiceProvider"
             ]
         }
     },

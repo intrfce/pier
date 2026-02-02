@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Sail\Console;
+namespace SocialSync\Console;
 
 use Illuminate\Console\Command;
-use Laravel\Sail\Console\Concerns\InteractsWithDockerComposeServices;
+use SocialSync\Console\Concerns\InteractsWithDockerComposeServices;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'sail:publish')]
+#[AsCommand(name: 'pier:publish')]
 class PublishCommand extends Command
 {
     use InteractsWithDockerComposeServices;
@@ -16,14 +16,14 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'sail:publish';
+    protected $signature = 'pier:publish';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Publish the Laravel Sail Docker files';
+    protected $description = 'Publish the Laravel Pier Docker files';
 
     /**
      * Execute the console command.
@@ -32,8 +32,8 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        $this->call('vendor:publish', ['--tag' => 'sail-docker']);
-        $this->call('vendor:publish', ['--tag' => 'sail-database']);
+        $this->call('vendor:publish', ['--tag' => 'pier-docker']);
+        $this->call('vendor:publish', ['--tag' => 'pier-database']);
 
         $composePath = $this->composePath();
 
@@ -41,23 +41,15 @@ class PublishCommand extends Command
             $composePath,
             str_replace(
                 [
-                    './vendor/laravel/sail/runtimes/8.5',
-                    './vendor/laravel/sail/runtimes/8.4',
-                    './vendor/laravel/sail/runtimes/8.3',
-                    './vendor/laravel/sail/runtimes/8.2',
-                    './vendor/laravel/sail/runtimes/8.1',
-                    './vendor/laravel/sail/runtimes/8.0',
-                    './vendor/laravel/sail/database/mariadb',
-                    './vendor/laravel/sail/database/mysql',
-                    './vendor/laravel/sail/database/pgsql'
+                    './vendor/laravel/pier/runtimes/8.5',
+                    './vendor/laravel/pier/runtimes/8.4',
+                    './vendor/laravel/pier/database/mariadb',
+                    './vendor/laravel/pier/database/mysql',
+                    './vendor/laravel/pier/database/pgsql'
                 ],
                 [
                     './docker/8.5',
                     './docker/8.4',
-                    './docker/8.3',
-                    './docker/8.2',
-                    './docker/8.1',
-                    './docker/8.0',
                     './docker/mariadb',
                     './docker/mysql',
                     './docker/pgsql'

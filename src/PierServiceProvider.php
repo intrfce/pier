@@ -1,14 +1,14 @@
 <?php
 
-namespace Laravel\Sail;
+namespace SocialSync;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Sail\Console\AddCommand;
-use Laravel\Sail\Console\InstallCommand;
-use Laravel\Sail\Console\PublishCommand;
+use SocialSync\Console\AddCommand;
+use SocialSync\Console\InstallCommand;
+use SocialSync\Console\PublishCommand;
 
-class SailServiceProvider extends ServiceProvider implements DeferrableProvider
+class PierServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Bootstrap any application services.
@@ -47,15 +47,15 @@ class SailServiceProvider extends ServiceProvider implements DeferrableProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../runtimes' => $this->app->basePath('docker'),
-            ], ['sail', 'sail-docker']);
+            ], ['pier', 'pier-docker']);
 
             $this->publishes([
-                __DIR__ . '/../bin/sail' => $this->app->basePath('sail'),
-            ], ['sail', 'sail-bin']);
+                __DIR__ . '/../bin/pier' => $this->app->basePath('pier'),
+            ], ['pier', 'pier-bin']);
 
             $this->publishes([
                 __DIR__ . '/../database' => $this->app->basePath('docker'),
-            ], ['sail', 'sail-database']);
+            ], ['pier', 'pier-database']);
         }
     }
 

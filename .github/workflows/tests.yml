@@ -18,10 +18,6 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - php: '8.2'
-            laravel: 12
-          - php: '8.3'
-            laravel: 12
           - php: '8.4'
             laravel: 12
           - php: '8.5'
@@ -34,7 +30,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
-          path: 'sail'
+          path: 'pier'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -48,35 +44,35 @@ jobs:
       - name: Create a new laravel application
         run: composer create-project laravel/laravel app "${{ matrix.laravel }}.x" --remove-vcs --no-interaction --prefer-dist
 
-      - name: Link Sail Repository
+      - name: Link Pier Repository
         run: |
           composer config minimum-stability dev
-          composer config repositories.sail path ../sail
-          composer require laravel/sail:* --dev -W
+          composer config repositories.pier path ../pier
+          composer require laravel/pier:* --dev -W
         working-directory: app
 
-      - name: Install Sail into App
+      - name: Install Pier into App
         run: |
-          php artisan sail:install --php=${{ matrix.php }} --no-interaction
-          php artisan sail:publish --no-interaction
+          php artisan pier:install --php=${{ matrix.php }} --no-interaction
+          php artisan pier:publish --no-interaction
         working-directory: app
 
-      - name: Remove Sail
-        run: composer remove laravel/sail --dev --no-interaction -W
+      - name: Remove Pier
+        run: composer remove laravel/pier --dev --no-interaction -W
         working-directory: app
 
-      - name: Start Sail Container
-        run: ../sail/bin/sail up -d --wait
+      - name: Start Pier Container
+        run: ../pier/bin/pier up -d --wait
         working-directory: app
 
       - name: Run Migrations
-        run: ../sail/bin/sail artisan migrate --no-interaction
+        run: ../pier/bin/pier artisan migrate --no-interaction
         working-directory: app
 
-      - name: Run Tests in Sail Container
-        run: ../sail/bin/sail test
+      - name: Run Tests in Pier Container
+        run: ../pier/bin/pier test
         working-directory: app
 
-      - name: Stop Sail Container
-        run: ../sail/bin/sail down
+      - name: Stop Pier Container
+        run: ../pier/bin/pier down
         working-directory: app
