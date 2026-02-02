@@ -41,11 +41,11 @@ class PublishCommand extends Command
             $composePath,
             str_replace(
                 [
-                    './vendor/laravel/pier/runtimes/8.5',
-                    './vendor/laravel/pier/runtimes/8.4',
-                    './vendor/laravel/pier/database/mariadb',
-                    './vendor/laravel/pier/database/mysql',
-                    './vendor/laravel/pier/database/pgsql'
+                    './vendor/social-sync/pier/runtimes/8.5',
+                    './vendor/social-sync/pier/runtimes/8.4',
+                    './vendor/social-sync/pier/database/mariadb',
+                    './vendor/social-sync/pier/database/mysql',
+                    './vendor/social-sync/pier/database/pgsql'
                 ],
                 [
                     './docker/8.5',
