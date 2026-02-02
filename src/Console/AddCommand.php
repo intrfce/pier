@@ -1,12 +1,12 @@
 <?php
 
-namespace Laravel\Sail\Console;
+namespace SocialSync\Console;
 
 use Illuminate\Console\Command;
-use Laravel\Sail\Console\Concerns\InteractsWithDockerComposeServices;
+use SocialSync\Console\Concerns\InteractsWithDockerComposeServices;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'sail:add')]
+#[AsCommand(name: 'pier:add')]
 class AddCommand extends Command
 {
     use InteractsWithDockerComposeServices;
@@ -16,7 +16,7 @@ class AddCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'sail:add
+    protected $signature = 'pier:add
         {services? : The services that should be added}
     ';
 
@@ -25,7 +25,7 @@ class AddCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Add a service to an existing Sail installation';
+    protected $description = 'Add a service to an existing Pier installation';
 
     /**
      * Execute the console command.
@@ -55,6 +55,6 @@ class AddCommand extends Command
         $this->prepareInstallation($services);
 
         $this->output->writeln('');
-        $this->components->info('Additional Sail services installed successfully.');
+        $this->components->info('Additional Pier services installed successfully.');
     }
 }

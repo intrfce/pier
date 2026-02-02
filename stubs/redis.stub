@@ -3,9 +3,9 @@ redis:
     ports:
         - '${FORWARD_REDIS_PORT:-6379}:6379'
     volumes:
-        - 'sail-redis:/data'
+        - 'pier-redis:/data'
     networks:
-        - sail
+        - pier
     healthcheck:
         test: ["CMD", "redis-cli", "ping"]
         retries: 3

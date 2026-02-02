@@ -11,9 +11,9 @@ rabbitmq:
         RABBITMQ_VHOST: '${RABBITMQ_VHOST}'
         RABBITMQ_QUEUE: '${RABBITMQ_QUEUE}'
     volumes:
-        - 'sail-rabbitmq:/var/lib/rabbitmq'
+        - 'pier-rabbitmq:/var/lib/rabbitmq'
     networks:
-        - sail
+        - pier
     healthcheck:
         test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
         retries: 3
