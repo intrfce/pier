@@ -4,7 +4,6 @@ namespace SocialSync;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use SocialSync\Console\AddCommand;
 use SocialSync\Console\InstallCommand;
 use SocialSync\Console\PublishCommand;
 
@@ -31,7 +30,6 @@ class PierServiceProvider extends ServiceProvider implements DeferrableProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
-                AddCommand::class,
                 PublishCommand::class,
             ]);
         }
