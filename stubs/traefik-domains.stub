@@ -1,0 +1,40 @@
+# Traefik Dynamic Configuration
+# Configure your domain routing rules here
+# Documentation: https://doc.traefik.io/traefik/routing/routers/
+
+http:
+    routers:
+        # Main application router
+        laravel:
+            rule: "Host(`localhost`)"
+            service: laravel
+            entryPoints:
+                - web
+
+        # HTTPS router example (uncomment to use)
+        # laravel-secure:
+        #     rule: "Host(`localhost`) || Host(`myapp.localhost`)"
+        #     service: laravel
+        #     entryPoints:
+        #         - websecure
+        #     tls: {}
+
+        # Multiple domains example (uncomment to use)
+        # laravel-multi:
+        #     rule: "Host(`myapp.localhost`) || Host(`api.localhost`) || Host(`admin.localhost`)"
+        #     service: laravel
+        #     entryPoints:
+        #         - web
+
+        # Wildcard subdomain example (uncomment to use)
+        # laravel-wildcard:
+        #     rule: "HostRegexp(`{subdomain:[a-z0-9-]+}.myapp.localhost`)"
+        #     service: laravel
+        #     entryPoints:
+        #         - web
+
+    services:
+        laravel:
+            loadBalancer:
+                servers:
+                    - url: "http://laravel.test:80"
