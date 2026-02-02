@@ -1,18 +1,6 @@
-<p align="center"><img width="294" height="69" src="/art/logo.svg" alt="Logo Laravel Pier"></p>
+# Pier
 
-<p align="center">
-<a href="https://packagist.org/packages/social-sync/pier"><img src="https://img.shields.io/packagist/dt/social-sync/pier" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/social-sync/pier"><img src="https://img.shields.io/packagist/v/social-sync/pier" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/social-sync/pier"><img src="https://img.shields.io/packagist/l/social-sync/pier" alt="License"></a>
-</p>
-
-## Introduction
-
-Pier provides a Docker powered local development experience for Laravel that is compatible with macOS, Windows (WSL2), and Linux. Other than Docker, no software or libraries are required to be installed on your local computer before using Pier. Pier's simple CLI means you can start building your Laravel application without any previous Docker experience.
-
-#### Inspiration
-
-Laravel Pier is inspired by and derived from [Vessel](https://github.com/shipping-docker/vessel) by [Chris Fidao](https://github.com/fideloper). If you're looking for a thorough introduction to Docker, check out Chris' course: [Shipping Docker](https://serversforhackers.com/shipping-docker).
+Pier is an opinionated derivative of [Laravel Sail](https://github.com/laravel/sail), providing a Docker powered local development experience for Laravel that is compatible with macOS, Windows (WSL2), and Linux. Other than Docker, no software or libraries are required to be installed on your local computer before using Pier. Pier's simple CLI means you can start building your Laravel application without any previous Docker experience.
 
 ## Official Documentation
 
