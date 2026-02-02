@@ -48,7 +48,7 @@ jobs:
         run: |
           composer config minimum-stability dev
           composer config repositories.pier path ../pier
-          composer require laravel/pier:* --dev -W
+          composer require social-sync/pier:* --dev -W
         working-directory: app
 
       - name: Install Pier into App
@@ -58,7 +58,7 @@ jobs:
         working-directory: app
 
       - name: Remove Pier
-        run: composer remove laravel/pier --dev --no-interaction -W
+        run: composer remove social-sync/pier --dev --no-interaction -W
         working-directory: app
 
       - name: Start Pier Container

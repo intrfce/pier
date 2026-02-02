@@ -9,7 +9,7 @@ pgsql:
         POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
     volumes:
         - 'pier-pgsql:/var/lib/postgresql'
-        - './vendor/laravel/pier/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+        - './vendor/social-sync/pier/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
     networks:
         - pier
     healthcheck:

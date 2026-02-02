@@ -1,9 +1,9 @@
 <p align="center"><img width="294" height="69" src="/art/logo.svg" alt="Logo Laravel Pier"></p>
 
 <p align="center">
-<a href="https://packagist.org/packages/laravel/pier"><img src="https://img.shields.io/packagist/dt/laravel/pier" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/pier"><img src="https://img.shields.io/packagist/v/laravel/pier" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/pier"><img src="https://img.shields.io/packagist/l/laravel/pier" alt="License"></a>
+<a href="https://packagist.org/packages/social-sync/pier"><img src="https://img.shields.io/packagist/dt/social-sync/pier" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/social-sync/pier"><img src="https://img.shields.io/packagist/v/social-sync/pier" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/social-sync/pier"><img src="https://img.shields.io/packagist/l/social-sync/pier" alt="License"></a>
 </p>
 
 ## Introduction
@@ -28,7 +28,7 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 ## Security Vulnerabilities
 
-Please review [our security policy](https://github.com/laravel/pier/security/policy) on how to report security vulnerabilities.
+Please review [our security policy](https://github.com/social-sync/pier/security/policy) on how to report security vulnerabilities.
 
 ## License
 
