@@ -3,9 +3,7 @@
 namespace SocialSync\Console;
 
 use Illuminate\Console\Command;
-use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
-use Symfony\Component\Process\Process;
 
 #[AsCommand(name: 'pier:install')]
 class InstallCommand extends Command
@@ -18,8 +16,6 @@ class InstallCommand extends Command
      * @var string
      */
     protected $signature = 'pier:install
-                {--with= : The services that should be included in the installation}
-                {--devcontainer : Create a .devcontainer configuration directory}
                 {--php=8.5 : The PHP version that should be used}';
 
     /**
@@ -36,28 +32,11 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        if ($this->option('with')) {
-            $services = $this->option('with') == 'none' ? [] : explode(',', $this->option('with'));
-        } elseif ($this->option('no-interaction')) {
-            $services = $this->defaultServices;
-        } else {
-            $services = $this->gatherServicesInteractively();
-        }
-
-        if ($invalidServices = array_diff($services, $this->services)) {
-            $this->components->error('Invalid services ['.implode(',', $invalidServices).'].');
-
-            return 1;
-        }
+        $services = $this->services;
 
         $this->buildDockerCompose($services);
         $this->replaceEnvVariables($services);
         $this->configurePhpUnit();
-
-        if ($this->option('devcontainer')) {
-            $this->installDevContainer();
-        }
-
         $this->prepareInstallation($services);
 
         $this->output->writeln('');
@@ -65,25 +44,18 @@ class InstallCommand extends Command
 
         $this->output->writeln('<fg=gray>➜</> <options=bold>./vendor/bin/pier up</>');
 
-        if (in_array('mysql', $services) ||
-            in_array('mariadb', $services) ||
-            in_array('pgsql', $services)) {
-            $this->components->warn('A database service was installed. Run "artisan migrate" to prepare your database:');
+        $this->components->warn('A database service was installed. Run "artisan migrate" to prepare your database:');
+        $this->output->writeln('<fg=gray>➜</> <options=bold>./vendor/bin/pier artisan migrate</>');
 
-            $this->output->writeln('<fg=gray>➜</> <options=bold>./vendor/bin/pier artisan migrate</>');
-        }
-
-        if (in_array('traefik', $services)) {
-            $this->output->writeln('');
-            $this->components->info('Traefik has been installed for local domain routing.');
-            $this->output->writeln('  Configure your domains in <options=bold>traefik-domains.yml</>');
-            $this->output->writeln('  The Traefik dashboard is available at <options=bold>http://localhost:8080</>');
-            $this->output->writeln('');
-            $this->output->writeln('  <fg=gray>The domains file supports:</>');
-            $this->output->writeln('  <fg=gray>- Multiple domains:</> Host(`myapp.localhost`) || Host(`api.localhost`)');
-            $this->output->writeln('  <fg=gray>- Wildcard subdomains:</> HostRegexp(`{subdomain:[a-z0-9-]+}.myapp.localhost`)');
-            $this->output->writeln('  <fg=gray>- Changes are applied automatically (no restart required)</>');
-        }
+        $this->output->writeln('');
+        $this->components->info('Traefik has been installed for local domain routing.');
+        $this->output->writeln('  Configure your domains in <options=bold>traefik-domains.yml</>');
+        $this->output->writeln('  The Traefik dashboard is available at <options=bold>http://localhost:8080</>');
+        $this->output->writeln('');
+        $this->output->writeln('  <fg=gray>The domains file supports:</>');
+        $this->output->writeln('  <fg=gray>- Multiple domains:</> Host(`myapp.localhost`) || Host(`api.localhost`)');
+        $this->output->writeln('  <fg=gray>- Wildcard subdomains:</> HostRegexp(`{subdomain:[a-z0-9-]+}.myapp.localhost`)');
+        $this->output->writeln('  <fg=gray>- Changes are applied automatically (no restart required)</>');
 
         $this->output->writeln('');
     }
