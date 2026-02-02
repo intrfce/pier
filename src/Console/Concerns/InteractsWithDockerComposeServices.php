@@ -40,6 +40,7 @@ trait InteractsWithDockerComposeServices
         'rabbitmq',
         'selenium',
         'soketi',
+        'traefik',
     ];
 
     /**
@@ -84,6 +85,11 @@ trait InteractsWithDockerComposeServices
         // Prepare the installation of the "mariadb-client" package if the MariaDB service is used...
         if (in_array('mariadb', $services)) {
             $compose['services']['laravel.test']['build']['args']['MYSQL_CLIENT'] = 'mariadb-client';
+        }
+
+        // When Traefik is used, remove direct port bindings from laravel.test to avoid conflicts...
+        if (in_array('traefik', $services)) {
+            unset($compose['services']['laravel.test']['ports']);
         }
 
         // Adds the new services as dependencies of the laravel.test service...
@@ -223,6 +229,10 @@ trait InteractsWithDockerComposeServices
             $environment = str_replace('RABBITMQ_HOST=127.0.0.1', 'RABBITMQ_HOST=rabbitmq', $environment);
         }
 
+        if (in_array('traefik', $services)) {
+            $this->installTraefikDomains();
+        }
+
         $environment = str_replace('# PHP_CLI_SERVER_WORKERS=4', 'PHP_CLI_SERVER_WORKERS=4', $environment);
 
         file_put_contents($this->laravel->basePath('.env'), $environment);
@@ -256,6 +266,23 @@ trait InteractsWithDockerComposeServices
         );
 
         file_put_contents($this->laravel->basePath('phpunit.xml'), $phpunit);
+    }
+
+    /**
+     * Install the Traefik domains configuration file.
+     *
+     * @return void
+     */
+    protected function installTraefikDomains()
+    {
+        $domainsPath = $this->laravel->basePath('traefik-domains.yml');
+
+        if (! file_exists($domainsPath)) {
+            file_put_contents(
+                $domainsPath,
+                file_get_contents(__DIR__.'/../../../stubs/traefik-domains.stub')
+            );
+        }
     }
 
     /**

@@ -1,0 +1,25 @@
+traefik:
+    image: 'traefik:v3.3'
+    command:
+        - '--api.insecure=true'
+        - '--ping=true'
+        - '--providers.docker=true'
+        - '--providers.docker.exposedbydefault=false'
+        - '--providers.docker.network=pier'
+        - '--providers.file.filename=/etc/traefik/domains.yml'
+        - '--providers.file.watch=true'
+        - '--entrypoints.web.address=:80'
+        - '--entrypoints.websecure.address=:443'
+    ports:
+        - '${FORWARD_TRAEFIK_PORT:-80}:80'
+        - '${FORWARD_TRAEFIK_SSL_PORT:-443}:443'
+        - '${FORWARD_TRAEFIK_DASHBOARD_PORT:-8080}:8080'
+    volumes:
+        - '/var/run/docker.sock:/var/run/docker.sock:ro'
+        - './traefik-domains.yml:/etc/traefik/domains.yml:ro'
+    networks:
+        - pier
+    healthcheck:
+        test: ['CMD', 'wget', '--spider', '-q', 'http://localhost:8080/ping']
+        retries: 3
+        timeout: 5s

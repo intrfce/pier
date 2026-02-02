@@ -73,6 +73,18 @@ class InstallCommand extends Command
             $this->output->writeln('<fg=gray>➜</> <options=bold>./vendor/bin/pier artisan migrate</>');
         }
 
+        if (in_array('traefik', $services)) {
+            $this->output->writeln('');
+            $this->components->info('Traefik has been installed for local domain routing.');
+            $this->output->writeln('  Configure your domains in <options=bold>traefik-domains.yml</>');
+            $this->output->writeln('  The Traefik dashboard is available at <options=bold>http://localhost:8080</>');
+            $this->output->writeln('');
+            $this->output->writeln('  <fg=gray>The domains file supports:</>');
+            $this->output->writeln('  <fg=gray>- Multiple domains:</> Host(`myapp.localhost`) || Host(`api.localhost`)');
+            $this->output->writeln('  <fg=gray>- Wildcard subdomains:</> HostRegexp(`{subdomain:[a-z0-9-]+}.myapp.localhost`)');
+            $this->output->writeln('  <fg=gray>- Changes are applied automatically (no restart required)</>');
+        }
+
         $this->output->writeln('');
     }
 }
